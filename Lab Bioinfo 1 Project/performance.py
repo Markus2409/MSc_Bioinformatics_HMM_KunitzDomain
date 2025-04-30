@@ -23,7 +23,6 @@ def get_q2(cm): #get accuracy function
 
 def get_mcc(cm): #you have a denominator that contains all the combination
     d=math.sqrt((cm[0][0]+cm[1][0])*(cm[0][0]+cm[0][1])*(cm[1][1]+cm[1][0])*(cm[1][1]+cm[0][1]))
-    print(d)
     return (cm[0][0]*cm[1][1]-cm[0][1]*cm[1][0])/d
 
 def get_tpr(cm): #true positive rate
@@ -49,7 +48,7 @@ def full_seq_computing(filename,th):
     return
 
 def single_domain_computing(filename,th):
-    cm=get_cm(filename,th,2)
+    cm=get_cm(filename,th,3)
     #FOR THE BEST SINGLE DOMAIN
     print("USING E-VALUE OF THE BEST DOMAIN")
     q2=get_q2(cm)
