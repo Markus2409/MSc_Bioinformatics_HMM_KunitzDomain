@@ -1,6 +1,6 @@
 # Building a Profile Hidden Markov Model for the Kunitz-Type Protease Inhibitor Domain
 
-## 🧰 Required Packages
+## Required Packages
 
 The following packages are required:
 
@@ -27,7 +27,7 @@ The following packages are required:
 
 ---
 
-## 📁 Repository Contents
+## Repository Contents
 
 This repository contains:
 
@@ -53,7 +53,7 @@ This repository contains:
 
 ---
 
-## 🚀 What to Do
+## What to Do
 
 ### 0. Download the Swiss-Prot FASTA file
 
@@ -110,7 +110,7 @@ This will:
 
 ---
 
-## 📊 Output
+## Output
 
 - **`hmm_results.txt`**  
   This file contains:
@@ -120,7 +120,7 @@ This will:
 
 ---
 
-## 📬 Contact and Additional Notes
+## Contact and Additional Notes
 
 You are not required to use the provided `rcsb_pdb_custom_report_20250410062557.csv` or `all_kunitz.fasta` files.
 
