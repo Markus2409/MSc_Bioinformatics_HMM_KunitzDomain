@@ -1,25 +1,121 @@
-# Building a Profile Hidden Markov Model for the Kunitz-type protease inhibitor domain
-### Package that are needed:
-cd-hit - a cosa serve
-comando install via conda
-hmmer - a cosa serve
-comando install via conda
-blast - a cosa serve
-comando install via conda
+# Building a Profile Hidden Markov Model for the Kunitz-Type Protease Inhibitor Domain
 
+## Required Packages
 
-### What is contened into the repository?
-The repository contains:
-rcsb_pdb_custom_report_20250410062557.csv a custom reports downloaded from pdb using this query: 
- magari mettila in un quote: QUERY: Data Collection Resolution <= 3.5 AND ( Identifier = "PF00014" AND Annotation Type = "Pfam" ) AND Polymer Entity Sequence Length <= 80 AND Polymer Entity Sequence Length >= 45
- pdb_kunitz_rp.ali  an empty fail that will contains the pdbefold multi structural alignments.
-all_kunitz.fasta, a file that contains all the kunitz proteins (human and not human).
-uniprot_sprot.fasta , a file that contains all sequences of the swissprot database, and it is useful to get from the all_kunitz, all the non_kunitz proteins sequences
-the script script_recover_representative_kunitz.sh extract the ids of most rapresentative kunitz proteins and inserts them in a properly formatted pdb_efold_ids.txt that is useful to make the MultiAlignment structural via PDBe fold 
-the script create_hmm_build.bash that creates the hmm model using the all_kunitz.fasta file, and the uniprot_sprot.fasta 
+The following packages are required:
 
-##What to do?
-After installed the Package (insert the link to the paragraph packlage that are needed) you have to run the script script_recover_representative_kunitz.sh. After that go to the website fo pdb efold https://www.ebi.ac.uk/msd-srv/ssm/
-from this select multiple and source: List of PDB codes, and load the file that the script created (pdb_efold_ids.txt).
-After that you have to click download fasta alignment and copy all the contents in the empty file called pdb_kunitz_rp.ali 
-Now you can run the creat_hmm_build.bash that will create for you the hmm model, and will test two random sets of positives and negatives taken from the positives and negatives found thanks to the hmm model. In this way you will have a file callend hmm_results.txt that will contains the best performances for both sets and the overall performance gained combining the two sets.Also will individuate the false positives and negatives.
+- **CD-HIT**  
+  **Purpose**: Clustering and redundancy reduction of protein sequences.  
+  **Install via conda**:
+  ```bash
+  conda install -c bioconda cd-hit
+  ```
+
+- **HMMER**  
+  **Purpose**: Building and searching Hidden Markov Models (HMMs) for protein domain detection.  
+  **Install via conda**:
+  ```bash
+  conda install -c bioconda hmmer
+  ```
+
+- **BLAST+**  
+  **Purpose**: Performing protein sequence similarity searches using `blastp`.  
+  **Install via conda**:
+  ```bash
+  conda install -c bioconda blast
+  ```
+
+---
+
+## Repository Contents
+
+This repository contains:
+
+- `rcsb_pdb_custom_report_20250410062557.csv`  
+  A custom report downloaded from the PDB using the following query:
+
+  > **QUERY:**  
+  > Data Collection Resolution ≤ 3.5  
+  > AND (Identifier = "PF00014" AND Annotation Type = "Pfam")  
+  > AND Polymer Entity Sequence Length between 45 and 80
+
+- `pdb_kunitz_rp.ali`  
+  An initially empty file. You will paste into this file the multi-structure alignment obtained from PDBeFold.
+
+- `all_kunitz.fasta`  
+  A FASTA file containing all Kunitz proteins (human and non-human).
+
+- `uniprot_sprot.fasta`  
+  A FASTA file containing the SwissProt database, used to extract non-Kunitz proteins.
+
+- `script_recover_representative_kunitz.sh`  
+  A script that extracts representative Kunitz domain PDB IDs and writes them to `pdb_efold_ids.txt`.
+
+- `create_hmm_build.bash`  
+  A script that builds the HMM model and evaluates its performance using the datasets.
+
+---
+
+## What to Do
+
+### 1. Install the required packages
+
+Install the packages listed in the [Required Packages](#-required-packages) section using conda.
+
+---
+
+### 2. Run the representative ID extraction script
+
+```bash
+bash script_recover_representative_kunitz.sh
+```
+
+This creates the file `pdb_efold_ids.txt`.
+
+---
+
+### 3. Perform structure-based multiple alignment
+
+1. Go to [PDBeFold Multi Alignment Tool](https://www.ebi.ac.uk/msd-srv/ssm/)
+2. Choose:
+   - **Mode**: Multiple
+   - **Source**: List of PDB codes
+3. Upload the `pdb_efold_ids.txt` file.
+4. Click "Download FASTA Alignment"
+5. Paste the content into the file `pdb_kunitz_rp.ali`.
+
+---
+
+### 4. Build the HMM and run evaluation
+
+Execute the script:
+
+```bash
+bash create_hmm_build.bash
+```
+
+This will:
+
+- Build an HMM model from the structural alignment
+- Generate training and test datasets from positive and negative sets
+- Run `hmmsearch` on those sets
+- Automatically identify the best E-value thresholds
+- Calculate performance metrics (accuracy, q2, MCC, etc.)
+- Detect false positives and false negatives
+- Save the output to `hmm_results.txt`
+
+---
+
+## Output
+
+- `hmm_results.txt`:  
+  Contains:
+  - Best E-value thresholds for full sequence and single domain predictions
+  - Performance metrics for each test set and overall
+  - Lists of false positives and false negatives
+
+---
+
+## Contact
+
+For any questions, suggestions or contributions, feel free to open an issue or contact the maintainer Marco Cuscunà.
