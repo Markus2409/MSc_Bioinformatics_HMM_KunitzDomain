@@ -48,7 +48,7 @@ This repository contains:
 - `script_recover_representative_kunitz.sh`  
   A script that extracts representative Kunitz domain PDB IDs and writes them to `pdb_efold_ids.txt`.
 
-- `create_hmm_build.bash`  
+- `create_hmm_build.sh`  
   A script that builds the HMM model and evaluates its performance using the datasets.
 
 ---
@@ -95,7 +95,7 @@ This will create the file `pdb_efold_ids.txt`.
 Run the following script:
 
 ```bash
-bash create_hmm_build.bash
+bash create_hmm_build.sh
 ```
 
 This will:
