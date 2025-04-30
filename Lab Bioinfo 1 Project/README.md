@@ -57,7 +57,7 @@ This repository contains:
 
 ### 0. Download the Swiss-Prot FASTA file
 
-Visit [UniProt](https://www.uniprot.org/) and download all protein sequences annotated in the Swiss-Prot database.  
+Visit [UniProt](https://www.uniprot.org/) and download all protein sequences annotated in the Swiss-Prot database. Insert the file into the folder with the scripts and recall it `uniprot_sprot.fasta`.  
 This file will be used to extract non-Kunitz protein sequences.
 
 ---
