@@ -48,7 +48,7 @@ This repository contains:
   A FASTA file containing all Kunitz proteins (human and non-human).
 
 - `script_recover_representative_kunitz.sh`  
-  A script that extracts representative Kunitz domain PDB IDs and writes them to `pdb_efold_ids.txt`.
+  A script that extracts representative Kunitz domain PDB IDs and writes them to `tmp_pdb_efold_ids.txt`.
 
 - `create_hmm_build.sh`  
   A script that builds the HMM model and evaluates its performance using the datasets.
@@ -91,7 +91,7 @@ Install the packages listed in the [Required Packages](#required-packages) secti
 bash script_recover_representative_kunitz.sh
 ```
 
-This will create the file `pdb_efold_ids.txt`.
+This will create the file `tmp_pdb_efold_ids.txt`.
 
 ---
 
