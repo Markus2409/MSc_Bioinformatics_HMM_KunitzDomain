@@ -101,7 +101,7 @@ This will create the file `pdb_efold_ids.txt`.
 2. Choose:
    - **Mode**: Multiple
    - **Source**: List of PDB codes
-3. Upload the file `pdb_efold_ids.txt`
+3. Upload the file `tmp_pdb_efold_ids.txt`
 4. Click **Download FASTA Alignment**
 5. Paste the downloaded content into the file `pdb_kunitz_rp.ali`
 
