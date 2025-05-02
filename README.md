@@ -54,8 +54,10 @@ This repository contains:
   A script that builds the HMM model and evaluates its performance using the datasets.
   
 - `get_seq.py`  
-  A Python script that extracts sequences from a FASTA file based on a list of IDs.  
-  It searches for matching accession numbers (from UniProt-style headers), and prints the corresponding sequence in FASTA format.
+  A Python script used to extract specific sequences from a FASTA file (typically the full Swiss-Prot database).  
+  It matches accession numbers (from the FASTA headers) against a provided list of IDs and prints the corresponding sequences in FASTA format.  
+  This script is used to generate the input FASTA files for positive and negative sets, based on pre-selected identifiers.
+
 
 - `performance.py`  
   A Python script that evaluates prediction performance using E-values and known labels.  
