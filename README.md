@@ -58,7 +58,7 @@ This repository contains:
   
 - `get_seq.py`  
   A Python script that extracts sequences from a FASTA file based on a list of IDs.  
-  It searches for matching accession numbers (from UniProt-style headers), and prints the corresponding sequence in FASTA format. Used to generate positive and negative sets from Swiss-Prot.
+  It searches for matching accession numbers (from UniProt-style headers), and prints the corresponding sequence in FASTA format.
 
 - `performance.py`  
   A Python script that evaluates prediction performance using E-values and known labels.  
