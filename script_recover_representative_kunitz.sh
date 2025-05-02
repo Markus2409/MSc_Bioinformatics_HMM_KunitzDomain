@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 cat rcsb_pdb_custom_report_20250410062557.csv |tr -d '"' | awk -F ',' '{if (length($2)>0) {name=$2}; print name ,$3,$4,$5}' | grep PF00014| awk '{print">"$1"_"$3;print$2}' > pdb_kunitz.fasta #a partire dal file pdb report ti scarica le sequenze dei domini pf00014 di tutte le proteine. 
 cd-hit -i pdb_kunitz.fasta -o pdb_kunitz.clstr -c 0.9 #questo ti clusterizza in base alla similarità. -c 0.9 hanno una similarita di 0.9
 clstr2txt.pl pdb_kunitz.clstr.clstr | awk '{if ($5==1) print $1}' > pdb_kunitz_rp.ids #questo ti prende le piu rappresentative per ciascun cluster e te le mette in un file a parte

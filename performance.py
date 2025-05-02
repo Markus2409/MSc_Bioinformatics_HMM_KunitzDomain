@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/python3
 import sys
 import math
 def get_cm(filename,threshold,pe,pr=1): #get the confusion matrix

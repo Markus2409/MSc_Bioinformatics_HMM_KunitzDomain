@@ -1,3 +1,4 @@
+#!/usr/bin/bash
 awk '{if (substr($1,1,1)==">") {print "\n"toupper($1)} else {printf "%s",toupper($1)}}' pdb_kunitz_rp.ali | sed s/PDB:// | tail -n +2 > pdb_kunitz_rp_clean.fasta #with this command we converted the file aligned from pdbefold in a format that we can use to create hmm model
 hmmbuild  pdb_kunitz_rp_clean.hmm pdb_kunitz_rp_clean.fasta #this command creates the hmm model with the sequences that you extracted from pdb!
 makeblastdb -in all_kunitz.fasta -input_type fasta -dbtype prot -out all_kunitz.fasta #questo crea il database di tutte le kunitz protein.
