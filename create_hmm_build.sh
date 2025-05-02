@@ -12,7 +12,7 @@ makeblastdb -in all_kunitz.fasta -input_type fasta -dbtype prot -out all_kunitz.
 # Perform BLAST search of the 23 representative sequences against the full Kunitz dataset
 blastp -query pdb_kunitz_rp.fasta -db all_kunitz.fasta -out pdb_kunitz_nr_23.blast -outfmt 7
 
-# Extract IDs of sequences with high identity (≥95%) and alignment length ≥50 to remove them from the training/testing pool
+# Extract Uniprot IDs of sequences with high identity (≥95%) and alignment length ≥50 to remove them from the training/testing pool
 grep -v "^#" pdb_kunitz_nr_23.blast | awk '{if ($3>=95 && $4>=50) print $2}' | sort -u | cut -d "|" -f 2 > pdb_idlist.txt
 
 # Extract all IDs from the full Kunitz dataset
