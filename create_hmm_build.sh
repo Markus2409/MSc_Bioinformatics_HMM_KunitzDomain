@@ -171,42 +171,47 @@ awk -v num="$set2_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_2.cl
 echo -e "\nFalse negatives for overall considering single domain e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results.txt
 awk -v num="$overall_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_1.class pos_2.class | sort -grk 3 >> hmm_results.txt
 
-#CLEANING PROCEDURE
-#NOTE: If you don't want to delete the temp files make comment-regions on the under code region
-echo "Cleaning temporary and intermediate files..."
+read -p "Do you want to delete temporary files? (y/n): " choice
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    #CLEANING PROCEDURE
+    #NOTE: This allows the user to delete temporary useless files. If the user has to do many trials it is suggested do not delete temporary files.
+    echo "Cleaning temporary and intermediate files..."
 
-# Cluster-related temporary files
-rm -f pdb_kunitz_customreported.fasta
-rm -f pdb_kunitz_customreported.clstr
-rm -f pdb_kunitz_customreported.clstr.clstr
-rm -f pdb_kunitz_customreported_rp.ids
-rm -f pdb_kunitz_customreported_rp.fasta
+    # Cluster-related temporary files
+    rm -f pdb_kunitz_customreported.fasta
+    rm -f pdb_kunitz_customreported.clstr
+    rm -f pdb_kunitz_customreported.clstr.clstr
+    rm -f pdb_kunitz_customreported_rp.ids
+    rm -f pdb_kunitz_customreported_rp.fasta
 
-# PDBeFold input
-rm -f tmp_pdb_efold_ids.txt
+    # PDBeFold input
+    rm -f tmp_pdb_efold_ids.txt
 
-# Temporary BLAST and ID files
-rm -f pdb_kunitz_rp_clean.blast
-rm -f tmp_pdb_kunitz_rp_clean_ids.txt
+    # Temporary BLAST and ID files
+    rm -f pdb_kunitz_rp_clean.blast
+    rm -f tmp_pdb_kunitz_rp_clean_ids.txt
 
-# BLAST database files created by makeblastdb (share prefix 'all_kunitz.pdb')
-rm -f all_kunitz.fasta.p* all_kunitz.fasta.*
+    # BLAST database files created by makeblastdb (share prefix 'all_kunitz.pdb')
+    rm -f all_kunitz.fasta.p* all_kunitz.fasta.*
 
-# Intermediate ID lists
-rm -f tmp_all_kunitz.id
-rm -f tmp_to_keep.ids
-rm -f tmp_random_ok_kunitz.id
-rm -f sp.id
-rm -f sp_negs.ids
-rm -f random_sp_negs.id
+    # Intermediate ID lists
+    rm -f tmp_all_kunitz.id
+    rm -f tmp_to_keep.ids
+    rm -f tmp_random_ok_kunitz.id
+    rm -f sp.id
+    rm -f sp_negs.ids
+    rm -f random_sp_negs.id
 
-# Random positive/negative ID files
-rm -f pos_1.id pos_2.id neg_1.id neg_2.id
+    # Random positive/negative ID files
+    rm -f pos_1.id pos_2.id neg_1.id neg_2.id
 
-# hmmsearch output files
-rm -f pos_1.out pos_2.out neg_1.out neg_2.out
+    # hmmsearch output files
+    rm -f pos_1.out pos_2.out neg_1.out neg_2.out
 
-# Processed .fasta files (will be regenerated if needed)
-rm -f pos_1.fasta pos_2.fasta neg_1.fasta neg_2.fasta
+    # Processed .fasta files (will be regenerated if needed)
+    rm -f pos_1.fasta pos_2.fasta neg_1.fasta neg_2.fasta
 
-echo "Cleanup complete"
+    echo "Cleanup completed"
+else
+    echo "Temporary files kept."
+fi
