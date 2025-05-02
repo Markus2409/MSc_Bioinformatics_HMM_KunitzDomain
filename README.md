@@ -39,10 +39,7 @@ This repository contains:
 - `rcsb_pdb_custom_report_20250410062557.csv` [see Additional Notes](#-contact-and-additional-notes)  
   A custom report downloaded from the PDB using the following query:
 
-  > **QUERY:**  
-  > Data Collection Resolution ≤ 3.5  
-  > AND (Identifier = "PF00014" AND Annotation Type = "Pfam")  
-  > AND Polymer Entity Sequence Length between 45 and 80
+  > Data Collection Resolution <= 3.5 AND ( Identifier = "PF00014" AND Annotation Type = "Pfam" ) AND Polymer Entity Sequence Length <= 80 AND Polymer Entity Sequence Length >= 45
 
 - `pdb_kunitz_rp.ali`  
   An initially empty file. You will paste into this file the multi-structure alignment obtained from PDBeFold.
