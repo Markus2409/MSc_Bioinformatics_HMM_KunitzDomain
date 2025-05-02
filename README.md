@@ -36,7 +36,7 @@ The following packages are required:
 
 This repository contains:
 
-- `rcsb_pdb_custom_report_20250410062557.csv` [see Additional Notes](#-contact-and-additional-notes)  
+- `rcsb_pdb_custom_report_20250410062557.csv` [see Additional Notes](#contact-and-additional-notes)  
   A custom report downloaded from the PDB using the following query:
 
   > Data Collection Resolution <= 3.5 AND ( Identifier = "PF00014" AND Annotation Type = "Pfam" ) AND Polymer Entity Sequence Length <= 80 AND Polymer Entity Sequence Length >= 45
@@ -44,7 +44,7 @@ This repository contains:
 - `pdb_kunitz_rp.ali`  
   An initially empty file. You will paste into this file the multi-structure alignment obtained from PDBeFold.
 
-- `all_kunitz.fasta` [see Additional Notes](#-contact-and-additional-notes)  
+- `all_kunitz.fasta` [see Additional Notes](#contact-and-additional-notes)  
   A FASTA file containing all Kunitz proteins (human and non-human).
 
 - `script_recover_representative_kunitz.sh`  
@@ -79,7 +79,7 @@ This file will be used to extract non-Kunitz protein sequences.
 
 ### 1. Install the required packages
 
-Install the packages listed in the [Required Packages](#-required-packages) section using `conda`.
+Install the packages listed in the [Required Packages](#required-packages) section using `conda`.
 
 ---
 
