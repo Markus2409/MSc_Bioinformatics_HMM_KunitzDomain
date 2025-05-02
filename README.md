@@ -1,4 +1,9 @@
 # Building a Profile Hidden Markov Model for the Kunitz-Type Protease Inhibitor Domain
+## Introduction
+This repository contains the implementation of a computational pipeline for building a Profile Hidden Markov Model (HMM) targeting the Kunitz-type protease inhibitor domain (Pfam ID: PF00014). 
+The Kunitz domain is a small protein domain found in a variety of protease inhibitors across multiple species. Detecting and classifying these domains is crucial for understanding protease regulation in biological systems.
+Using a structure-based multiple alignment of representative Kunitz domain proteins, an HMM model is built and calibrated. The model is then evaluated on both positive (true Kunitz) and negative (non-Kunitz) protein sequences to assess its detection performance.
+This project was developed as part of a Laboratory of Bioinformatics 1 assignment for the MSc in Bioinformatics, with the goal of integrating structural bioinformatics, sequence analysis, and statistical evaluation of predictive models.
 
 ## Required Packages
 
