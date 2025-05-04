@@ -61,87 +61,87 @@ set2_best_evalue_one_domain=$(
 # Identify false positives: non-Kunitz proteins with E-value below threshold (misclassified as positive)
 # Identify false negatives: Kunitz proteins with E-value above threshold (misclassified as negative)
 #SET_1 BEST THRESHOLD USING FULL SEQUENCE E-VALUE
-echo -e "\nBEST THRESHOLD OBTAINED FROM SET_1 FULL SEQUENCE: $set1_best_evalue_full_seq" > hmm_results_seqali.txt
+echo -e "BEST THRESHOLD OBTAINED FROM SET_1 FULL SEQUENCE: $set1_best_evalue_full_seq" > hmm_results_seqali.txt
     #SET_2 TEST
 echo -e "\nPERFORMANCES SET_2 USING E-VALUE THRESHOLD OF SET_1 - FULL SEQUENCES" >> hmm_results_seqali.txt
 python3 performance.py set_2_seqali.class "$set1_best_evalue_full_seq" 1 >> hmm_results_seqali.txt
         #false positives set_2
-echo -e "\nFalse positives for set 2 considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for set 2 considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_full_seq" '$3 < num {print $1, $2, $3}' neg_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives set_2
-echo -e "\nFalse negatives for set 2 considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for set 2 considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_full_seq" '$3 > num {print $1, $2, $3}' pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
     #OVERALL TEST
 echo -e "\nOVERALL PERFORMANCES USING E-VALUE THRESHOLD OF SET_1 - FULL SEQUENCES" >> hmm_results_seqali.txt
 python3 performance.py temp_overall_seqali.class "$set1_best_evalue_full_seq" 1 >> hmm_results_seqali.txt
         #false positives overall
-echo -e "\nFalse positives for overall considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for overall considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_full_seq" '$3 < num  {print $1, $2, $3}' neg_2_seqali.class neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives overall
-echo -e "\nFalse negatives for overall considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for overall considering full sequence set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_full_seq" '$3 > num {print $1, $2, $3}' pos_1_seqali.class pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt 
 
 #SET_2 BEST THRESHOLD USING FULL SEQUENCE E-VALUE
-echo -e "\n\nBEST THRESHOLD OBTAINED FROM SET_2 FULL SEQUENCE: $set2_best_evalue_full_seq" >> hmm_results_seqali.txt
+echo -e "\n\n\nBEST THRESHOLD OBTAINED FROM SET_2 FULL SEQUENCE: $set2_best_evalue_full_seq" >> hmm_results_seqali.txt
     #SET_1 TEST
 echo -e "\nPERFORMANCES SET_1 USING E-VALUE THRESHOLD OF SET_2 - FULL SEQUENCES" >> hmm_results_seqali.txt
 python3 performance.py set_1_seqali.class "$set2_best_evalue_full_seq" 1 >> hmm_results_seqali.txt
         #false positives set_1
-echo -e "\nFalse positives for set 1 considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for set 1 considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_full_seq" '$3 < num {print $1, $2, $3}' neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives set_1
-echo -e "\nFalse negatives for set 1 considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for set 1 considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_full_seq" '$3 > num {print $1, $2, $3}' pos_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
     #OVERALL TEST
 echo -e "\nOVERALL PERFORMANCES USING E-VALUE THRESHOLD OF SET_2 - FULL SEQUENCES" >> hmm_results_seqali.txt
 python3 performance.py temp_overall_seqali.class "$set2_best_evalue_full_seq" 1 >> hmm_results_seqali.txt
         #false positives overall
-echo -e "\nFalse positives for overall considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for overall considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_full_seq" '$3 < num  {print $1, $2, $3}' neg_2_seqali.class neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives overall
-echo -e "\nFalse negatives for overall considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for overall considering full sequence set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_full_seq" '$3 > num {print $1, $2, $3}' pos_1_seqali.class pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
 
 #SET_1 BEST THRESHOLD USING SINGLE DOMAIN E-VALUE
-echo -e "\n\n BEST THRESHOLD OBTAINED FROM SET_1 SINGLE DOMAIN: $set1_best_evalue_one_domain" >> hmm_results_seqali.txt
+echo -e "\n\n\n BEST THRESHOLD OBTAINED FROM SET_1 SINGLE DOMAIN: $set1_best_evalue_one_domain" >> hmm_results_seqali.txt
     #SET_2 TEST
 echo -e "\nPERFORMANCES SET_2 USING E-VALUE THRESHOLD OF SET_1 - SINGLE DOMAIN" >> hmm_results_seqali.txt
 python3 performance.py set_2_seqali.class "$set1_best_evalue_one_domain" 2 >> hmm_results_seqali.txt
         #false positives set_2
-echo -e "\nFalse positives for set 2 considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for set 2 considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_one_domain" '$4 < num {print $1, $2, $4}' neg_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives set_2
-echo -e "\nFalse negatives for set 2 considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for set 2 considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
     #OVERALL
 echo -e "\nOVERALL PERFORMANCES USING E-VALUE THRESHOLD OF SET_1 - SINGLE DOMAIN" >> hmm_results_seqali.txt
 python3 performance.py temp_overall_seqali.class "$set1_best_evalue_one_domain" 2 >> hmm_results_seqali.txt
         #false positives overall
-echo -e "\nFalse positives for overall considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for overall considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_one_domain" '$4 < num  {print $1, $2, $4}' neg_2_seqali.class neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt   
         #false negatives overall     
-echo -e "\nFalse negatives for overall considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for overall considering single domain set 1 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set1_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_1_seqali.class pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
 
 #SET_2 BEST THRESHOLD USING SINGLE DOMAIN E-VALUE
-echo -e "\n\n BEST THRESHOLD OBTAINED FROM SET_2 SINGLE DOMAIN: $set2_best_evalue_one_domain" >> hmm_results_seqali.txt
+echo -e "\n\n\n BEST THRESHOLD OBTAINED FROM SET_2 SINGLE DOMAIN: $set2_best_evalue_one_domain" >> hmm_results_seqali.txt
     #SET_1 TEST
 echo -e "\nPERFORMANCES SET_1 USING E-VALUE THRESHOLD OF SET_2 - SINGLE DOMAIN" >> hmm_results_seqali.txt
 python3 performance.py set_1_seqali.class "$set2_best_evalue_one_domain" 2 >> hmm_results_seqali.txt
         #false positives set_1
-echo -e "\nFalse positives for set 1 considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for set 1 considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_one_domain" '$4 < num {print $1, $2, $4}' neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives
-echo -e "\nFalse negatives for set 1 considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for set 1 considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
     #OVERALL
 echo -e "\nOVERALL PERFORMANCES USING E-VALUE THRESHOLD OF SET_2 - SINGLE DOMAIN" >> hmm_results_seqali.txt
 python3 performance.py temp_overall_seqali.class "$set2_best_evalue_one_domain" 2 >> hmm_results_seqali.txt
         #false positives overall
-echo -e "\nFalse positives for overall considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False positives for overall considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_one_domain" '$4 < num  {print $1, $2, $4}' neg_2_seqali.class neg_1_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
         #false negatives overall
-echo -e "\nFalse negatives for overall considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
+echo -e "False negatives for overall considering single domain set 2 e-value threshold:\nUniprotId|True Class|E-value" >> hmm_results_seqali.txt
 awk -v num="$set2_best_evalue_one_domain" '$4 > num {print $1, $2, $4}' pos_1_seqali.class pos_2_seqali.class | sort -grk 3 >> hmm_results_seqali.txt
 
 

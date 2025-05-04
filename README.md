@@ -1,33 +1,41 @@
 # Building a Profile Hidden Markov Model for the Kunitz-Type Protease Inhibitor Domain
 ## Introduction
-This repository contains the implementation of a computational pipeline for building a Profile Hidden Markov Model (HMM) targeting the Kunitz-type protease inhibitor domain (Pfam ID: PF00014). 
+This repository contains the implementation of a computational pipeline for building a Profile Hidden Markov Model (HMM) targeting the Kunitz-type protease inhibitor domain (Pfam ID: PF00014).
 The Kunitz domain is a small protein domain found in a variety of protease inhibitors across multiple species. Detecting and classifying these domains is crucial for understanding protease regulation in biological systems.
 Using a structure-based multiple alignment of representative Kunitz domain proteins, an HMM model is built and calibrated. The model is then evaluated on both positive (true Kunitz) and negative (non-Kunitz) protein sequences to assess its detection performance.
-This project was developed as part of a _Laboratory of Bioinformatics 1_ assignment during my MSc in [Bioinformatics (at University of Bologna)](https://corsi.unibo.it/2cycle/Bioinformatics), with the goal of integrating structural bioinformatics, sequence analysis, and statistical evaluation of predictive models.
+Additionally, a comparison is performed with a sequence-based multiple alignment HMM model, built using MUSCLE, to evaluate differences in predictive performance.
+This project was developed as part of a *Laboratory of Bioinformatics 1* assignment during my MSc in [Bioinformatics (at University of Bologna)](https://corsi.unibo.it/2cycle/Bioinformatics), with the goal of integrating structural bioinformatics, sequence analysis, and statistical evaluation of predictive models.
 
 ## Required Packages
 
 The following packages are required:
 
 - **CD-HIT**  
-  **Purpose**: Clustering and redundancy reduction of protein sequences.  
+  **Purpose**: Clustering and redundancy reduction of protein sequences.
   **Install via conda**:
   ```bash
   conda install -c bioconda cd-hit
   ```
 
 - **HMMER**  
-  **Purpose**: Building and searching Hidden Markov Models (HMMs) for protein domain detection.  
+  **Purpose**: Building and searching Hidden Markov Models (HMMs) for protein domain detection.
   **Install via conda**:
   ```bash
   conda install -c bioconda hmmer
   ```
 
-- **BLAST+**  
-  **Purpose**: Performing protein sequence similarity searches using `blastp`.  
+- **BLAST+** 
+  **Purpose**: Performing protein sequence similarity searches using `blastp`.
   **Install via conda**:
   ```bash
   conda install -c bioconda blast
+  ```
+
+- **MUSCLE** *(Optional — required only for [Comparison with sequence based hmm](#5-optional-compare-with-sequence-based-hmm))*
+  **Purpose**: Performing multiple sequence alignments for sequence-based HMM construction.
+  **Install via conda**:
+  ```bash
+  conda install -c bioconda muscle
   ```
 
 ---
@@ -36,37 +44,41 @@ The following packages are required:
 
 This repository contains:
 
-- `rcsb_pdb_custom_report_20250410062557.csv` [see Additional Notes](#contact-and-additional-notes)  
+- `rcsb_pdb_custom_report_20250410062557.csv` [see Additional Notes](#contact-and-additional-notes)
   A custom report downloaded from the PDB using the following query:
 
   > Data Collection Resolution <= 3.5 AND ( Identifier = "PF00014" AND Annotation Type = "Pfam" ) AND Polymer Entity Sequence Length <= 80 AND Polymer Entity Sequence Length >= 45
 
-- `pdb_kunitz_rp.ali`  
+- `pdb_kunitz_rp.ali`
   An initially empty file. You will paste into this file the multi-structure alignment obtained from PDBeFold.
 
-- `all_kunitz.fasta` [see Additional Notes](#contact-and-additional-notes)  
+- `all_kunitz.fasta` [see Additional Notes](#contact-and-additional-notes)
   A FASTA file containing all Kunitz proteins (human and non-human).
 
-- `script_recover_representative_kunitz.sh`  
+- `script_recover_representative_kunitz.sh`
   A script that extracts representative Kunitz domain PDB IDs and writes them to `tmp_pdb_efold_ids.txt`.
 
-- `create_hmm_build.sh`  
-  A script that builds the HMM model and evaluates its performance using the datasets.
-  
-- `get_seq.py`  
-  A Python script used to extract specific sequences from a FASTA file (typically the full Swiss-Prot database).  
-  It matches accession numbers (from the FASTA headers) against a provided list of IDs and prints the corresponding sequences in FASTA format.  
+- `create_hmm_str.sh`
+  A script that builds the structural HMM from the PDBeFold alignment.
+
+- `create_testing_sets.sh`
+  A script that performs test set generation and 2-fold cross-validation. It removes overlap with training data, computes optimal thresholds (via MCC), and outputs results to `hmm_results_strali.txt`.
+
+- `create_hmm_seq.sh`
+  A script for sequence-based alignment using MUSCLE and subsequent HMM construction. Uses the same test sets and evaluates performance, writing results to `hmm_results_seqali.txt`.
+
+- `get_seq.py`
+  A Python script used to extract specific sequences from a FASTA file (typically the full Swiss-Prot database).
+  It matches accession numbers (from the FASTA headers) against a provided list of IDs and prints the corresponding sequences in FASTA format.
   This script is used to generate the input FASTA files for positive and negative sets, based on pre-selected identifiers.
 
-
-- `performance.py`  
-  A Python script that evaluates prediction performance using E-values and known labels.  
-  It computes metrics such as accuracy (q2), Matthews Correlation Coefficient (MCC), true positive rate (TPR), and precision (PPV).  
+- `performance.py`
+  A Python script that evaluates prediction performance using E-values and known labels.
+  It computes metrics such as accuracy (q2), Matthews Correlation Coefficient (MCC), true positive rate (TPR), and precision (PPV).
   It allows comparison of results using full-sequence vs. best-domain E-values, with manual threshold selection.
-  
-- `hmm_results.txt`  
-  An example output file generated by the pipeline.  
-  It contains the performance metrics calculated using the optimal E-values (selected by maximizing MCC), for both full-sequence and best-domain evaluations, across different test sets.
+
+- `hmm_results_strali.txt`, `hmm_results_seqali.txt`
+  Performance evaluation results (MCC, precision, recall, etc.) for the structural and sequence-based models.
 
 ---
 
@@ -74,7 +86,7 @@ This repository contains:
 
 ### 0. Download the Swiss-Prot FASTA file
 
-Visit [UniProt](https://www.uniprot.org/) and download all protein sequences annotated in the Swiss-Prot database. Insert the file into the folder with the scripts and recall it `uniprot_sprot.fasta`.  
+Visit [UniProt](https://www.uniprot.org/) and download all protein sequences annotated in the Swiss-Prot database. Insert the file into the folder with the scripts and recall it `uniprot_sprot.fasta`.
 This file will be used to extract non-Kunitz protein sequences.
 
 ---
@@ -93,47 +105,64 @@ bash script_recover_representative_kunitz.sh
 
 This will create the file `tmp_pdb_efold_ids.txt`.
 
+> **Note**: Before submitting the list to PDBeFold, manually inspect the sequences and remove any that are too long, too short, or have unstructured tails. This ensures compatibility with PDBeFold and maintains alignment and hmm quality.
+
 ---
 
 ### 3. Perform structure-based multiple alignment
 
 1. Go to the [PDBeFold Multi Alignment Tool](https://www.ebi.ac.uk/msd-srv/ssm/)
 2. Choose:
-   - **Mode**: Multiple
-   - **Source**: List of PDB codes
+
+   * **Mode**: Multiple
+   * **Source**: List of PDB codes
 3. Upload the file `tmp_pdb_efold_ids.txt`
 4. Click **Download FASTA Alignment**
 5. Paste the downloaded content into the file `pdb_kunitz_rp.ali`
 
 ---
 
-### 4. Build the HMM and evaluate performance
-
-Run the following script:
+### 4. Build and test the HMM model for structural alignment
 
 ```bash
-bash create_hmm_build.sh
+bash create_hmm_str.sh
+bash create_testing_sets.sh
 ```
 
-This will:
+This pipeline will:
 
-- Build an HMM model from the structural alignment
-- Generate random subsets of positive and negative sequences, which will be used to create test sets  
-- Run `hmmsearch` on those sets
-- Automatically identify the best E-value thresholds
-- Calculate performance metrics (q2, MCC, etc.)
-- Identify false positives and false negatives
-- Save all results into `hmm_results.txt`
+* Build a structural HMM from the PDBeFold structural alignment
+* Remove training sequences from the full dataset and generate random subsets of positive and negative sequences, which will be used to create test sets
+* Automatically identify the optimal E-value thresholds via MCC evaluation (2-fold CV)
+* Perform evaluation on:
+
+  * **Set 1**, using Set 2’s threshold
+  * **Set 2**, using Set 1’s threshold
+  * **Combined Set 1 + Set 2**, using both thresholds for overall assessment
+* Report MCC, precision, recall, and identify false positives and false negatives
+* Write detailed results to `hmm_results_strali.txt`
+
 
 ---
 
-## Output
+### 5. (Optional) Compare with sequence-based HMM
 
-- **`hmm_results.txt`**  
-  This file contains:
+```bash
+bash create_hmm_seq.sh
+```
+
+This builds an HMM using a MUSCLE sequence alignment of the same representative sequences. It uses the same test sets and evaluates performance, writing results to `hmm_results_seqali.txt`.
+
+---
+
+## Output(s)
+
+* `hmm_results_strali.txt` and `hmm_results_seqali.txt` contain:
   - The best E-value thresholds selected by maximizing the Matthews Correlation Coefficient (MCC)
   - Performance metrics for each test set and overall, calculated using the E-value that yielded the highest MCC, based on either full sequence or best single domain evaluations
   - Lists of false positives and false negatives
+
+These results can be used to compare performances of structural vs. sequence-based modeling approaches.
 
 ---
 
@@ -141,8 +170,8 @@ This will:
 
 You are not required to use the provided `rcsb_pdb_custom_report_20250410062557.csv` or `all_kunitz.fasta` files.
 
-- To generate your own **PDB custom report**, visit the [RCSB PDB Advanced Search](https://www.rcsb.org/search/advanced) and customize the filters to suit your needs (e.g., domain = PF00014, resolution limits, sequence length).
-- To build your own **all_kunitz.fasta**, go to [UniProt](https://www.uniprot.org/), search for all proteins annotated with the Pfam domain `PF00014`, and download the resulting sequences in FASTA format.
+* To generate your own **PDB custom report**, visit the [RCSB PDB Advanced Search](https://www.rcsb.org/search/advanced) and customize the filters to suit your needs (e.g., domain = PF00014, resolution limits, sequence length).
+* To build your own **all_kunitz.fasta**, go to [UniProt](https://www.uniprot.org/), search for all proteins annotated with the Pfam domain `PF00014`, and download the resulting sequences in FASTA format.
 
 ---
 
