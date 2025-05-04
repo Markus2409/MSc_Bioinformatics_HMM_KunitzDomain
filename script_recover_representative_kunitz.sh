@@ -10,11 +10,12 @@ cat rcsb_pdb_custom_report_20250410062557.csv | tr -d '"' \
 cd-hit -i pdb_kunitz_customreported.fasta -o pdb_kunitz_customreported.clstr -c 0.9
 
 # Extract the most representative ID from each cluster
-clstr2txt.pl pdb_kunitz_customreported.clstr.clstr | awk '{if ($5==1) print $1}' > pdb_kunitz_customreported_rp.ids 
+clstr2txt.pl pdb_kunitz_customreported.clstr.clstr | awk '{if ($5==1) print $1}' > pdb_kunitz_rp.ids 
 
 # Retrieve the sequences of the representative IDs and store them in a new FASTA file
-for i in `cat pdb_kunitz_customreported_rp.ids`; do
-  grep -A 1 "^>$i" pdb_kunitz_customreported.fasta | tail -n 2 >> pdb_kunitz_customreported_rp.fasta
+> pdb_kunitz_rp.fasta
+for i in `cat pdb_kunitz_rp.ids`; do
+  grep -A 1 "^>$i" pdb_kunitz_customreported.fasta | tail -n 2 >> pdb_kunitz_rp.fasta
 done
 
 # This file now contains only the representative sequences selected from CD-HIT
@@ -22,4 +23,4 @@ done
 # OPTIONAL: check manually for sequences that are too long and remove them before continuing
 
 # Generate the PDBefold input format (convert IDs to the expected format: PDB:CHAIN)
-grep ">" pdb_kunitz_customreported_rp.fasta | tr -d ">" | tr "_" ":" > tmp_pdb_efold_ids.txt #this is a temporary file with ids that we have to insert in pdbefold to do the MultiStructural Alignment.
+grep ">" pdb_kunitz_rp.fasta | tr -d ">" | tr "_" ":" > tmp_pdb_efold_ids.txt #this is a temporary file with ids that we have to insert in pdbefold to do the MultiStructural Alignment.
