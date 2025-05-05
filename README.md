@@ -10,21 +10,21 @@ This project was developed as part of a *Laboratory of Bioinformatics 1* assignm
 
 The following packages are required:
 
-- **CD-HIT**  
+- **CD-HIT**
   **Purpose**: Clustering and redundancy reduction of protein sequences.
   **Install via conda**:
   ```bash
   conda install -c bioconda cd-hit
   ```
 
-- **HMMER**  
+- **HMMER**
   **Purpose**: Building and searching Hidden Markov Models (HMMs) for protein domain detection.
   **Install via conda**:
   ```bash
   conda install -c bioconda hmmer
   ```
 
-- **BLAST+** 
+- **BLAST+**
   **Purpose**: Performing protein sequence similarity searches using `blastp`.
   **Install via conda**:
   ```bash
