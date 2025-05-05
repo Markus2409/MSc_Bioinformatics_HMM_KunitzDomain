@@ -31,7 +31,7 @@ echo 'Creating positive test files (set1 and set2)...'
 
 # Remove the overlapping IDs and keep only the remaining Kunitz proteins
 comm -23 <(sort tmp_all_kunitz.id) <(sort tmp_pdb_kunitz_rp_clean_ids.txt) > tmp_to_keep.ids
-sort -r tmp_to_keep.ids > tmp_random_ok_kunitz.id
+sort -R tmp_to_keep.ids > tmp_random_ok_kunitz.id
 head -n 184 tmp_random_ok_kunitz.id > tmp_pos_1.id
 tail -n 184 tmp_random_ok_kunitz.id > tmp_pos_2.id
 python3 get_seq.py tmp_pos_1.id uniprot_sprot.fasta > pos_1.fasta
@@ -44,7 +44,7 @@ grep ">" uniprot_sprot.fasta | cut -d "|" -f 2 > tmp_sp.id
 
 # Remove the Kunitz proteins to get the negative candidates
 comm -23 <(sort tmp_sp.id) <(sort tmp_all_kunitz.id) > tmp_sp_negs.ids
-sort -r tmp_sp_negs.ids > tmp_random_sp_negs.id
+sort -R tmp_sp_negs.ids > tmp_random_sp_negs.id
 head -n 286286 tmp_random_sp_negs.id > tmp_neg_1.id
 tail -n 286286 tmp_random_sp_negs.id > tmp_neg_2.id
 python3 get_seq.py tmp_neg_1.id uniprot_sprot.fasta > neg_1.fasta
@@ -204,7 +204,9 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     rm -f pdb_kunitz_customreported.fasta
     rm -f pdb_kunitz_customreported.clstr
     rm -f pdb_kunitz_customreported.clstr.clstr
-
+    rm -f pdb_kunitz_rp.ids
+    rm -f pdb_kunitz_rp.fasta
+    
     # All intermediate temporary files
     rm -f tmp*.*
 
