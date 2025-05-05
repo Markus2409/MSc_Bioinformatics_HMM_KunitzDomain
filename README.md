@@ -11,6 +11,7 @@ This project was developed as part of a *Laboratory of Bioinformatics 1* assignm
 The following packages are required:
 
 - **CD-HIT**
+
   **Purpose**: Clustering and redundancy reduction of protein sequences.
   **Install via conda**:
   ```bash
@@ -18,6 +19,7 @@ The following packages are required:
   ```
 
 - **HMMER**
+
   **Purpose**: Building and searching Hidden Markov Models (HMMs) for protein domain detection.
   **Install via conda**:
   ```bash
@@ -25,6 +27,7 @@ The following packages are required:
   ```
 
 - **BLAST+**
+
   **Purpose**: Performing protein sequence similarity searches using `blastp`.
   **Install via conda**:
   ```bash
@@ -32,6 +35,7 @@ The following packages are required:
   ```
 
 - **MUSCLE** *(Optional — required only for [Comparison with sequence based hmm](#5-optional-compare-with-sequence-based-hmm))*
+
   **Purpose**: Performing multiple sequence alignments for sequence-based HMM construction.
   **Install via conda**:
   ```bash
@@ -39,6 +43,7 @@ The following packages are required:
   ```
   
 - **BIOPYTHON**  
+
   **Purpose**: Required to run `get_seq.py`, used for sequence extraction.  
   **Install via conda**:
   ```bash
@@ -61,7 +66,7 @@ This repository contains:
 - `all_kunitz.fasta` [see Additional Notes](#contact-and-additional-notes)
   A FASTA file containing all Kunitz proteins (human and non-human).
   
--`uniprot_sprot.fasta`  
+- `uniprot_sprot.fasta`  
   Full Swiss-Prot protein dataset in FASTA format, used to extract negative sets and full Kunitz reference.
   
 - `script_recover_representative_kunitz.sh`
@@ -180,12 +185,13 @@ This builds an HMM using a MUSCLE sequence alignment of the same representative 
 * `pdb_kunitz_rp_strali.fasta` and `pdb_kunitz_rp_strali.hmm`: The multiple structure alignment and resulting HMM model built from PDBeFold.
 * `set_1_strali.class` and `set_2_strali.class`: Classification results from `hmmsearch` for set 1 and set 2 (structure-based model).
 * `temp_overall.class`: Classification results for the combined dataset (positive + negative), used to estimate overall performance for each threshold.
+  
+These results can be used to compare performances of structural vs. sequence-based modeling approaches.
 
 > All files ending in `_seqali` were generated using the sequence-based alignment and evaluation ([5. (Optional) Compare with sequence-based HMM](#5-optional-compare-with-sequence-based-hmm))*).
 > All files ending in `_strali` were generated using the structure-based alignment and model evaluation (default pipeline).
 
-These results can be used to compare performances of structural vs. sequence-based modeling approaches.
- > You can see an Example of Outputs files into `OUTPUT_EXAMPLES folder`.
+> You can see an Example of Output files into `OUTPUT_EXAMPLES` folder.
 ---
 
 ## Contact and Additional Notes
