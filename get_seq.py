@@ -1,33 +1,49 @@
-#!/usr/bin/python
-import sys
-def get_ids(idlist):
-    # Read the file containing the list of IDs (one per line) and return them as a list
-    f = open(idlist)
-    return f.read().strip().split('\n')
+from sys import argv,stdout
+from Bio import SeqIO
 
-def get_seq(pidlist, seqfile):
-    f = open(seqfile)
-    s = 0
-    for line in f:
-        # The FASTA format is: a line starting with '>' (the header), followed by the sequence on the next line(s)
-        # We define a state variable `s` to control whether to print the current sequence or not
-        if line.startswith('>'):
-            pid = line.split('|')[1]  # Extract the accession number from the second field of the header
-            s = 0  # Default state: skip the sequence
-            if pid in pidlist:
-                s = 1  # If the accession number is in the list, enable printing
-        if s == 1:
-            print(line.strip())
+"""
+Extracts sequences from a UniProt-formatted FASTA file based on a list of UniProt accession IDs,
+and prints them to standard output in FASTA format.
 
-# NOTE:
-# The input FASTA file must follow the UniProt format:
-# >sp|P12345|... (ID in 2nd field)
-# Before using this script, ensure that your ID list corresponds to the accession number field
+Usage:
+    python script.py id_list.txt input_fasta.fasta > output.fasta
+
+Arguments:
+    argv[1] = Text file containing one UniProt accession ID per line (e.g., A0A1D0BND9)
+    argv[2] = FASTA file with UniProt headers (e.g., >sp|A0A1D0BND9|Protein_Name ...)
+
+Notes:
+- The ID list must contain only plain accession IDs, without any ">" symbol.
+- The FASTA file must follow UniProt header format:
+    >sp|ACCESSION|ENTRY_NAME ...
+  The script extracts the second field (ACCESSION) for matching.
+- Matching sequences are printed to stdout that are redirected to a file using `>` in the shell.
+"""
 
 
 
+
+def get_ids(file):
+    # Carica gli ID da cercare
+    with open(to_get, 'r') as file:
+        ids_to_get = {line.strip() for line in file if line.strip()}
+    return ids_to_get
+
+
+def get_seq(ids_to_get, datasetfile):
+    with open(datasetfile, 'r') as file1:
+        for prot in SeqIO.parse(file1, 'fasta'):
+            # Estrai l’ID Swiss-Prot, cioè la seconda parte tra i "|"
+            try:
+                uniprot_id = prot.id.split('|')[1] if '|' in prot.id else prot.id
+            except IndexError:
+                continue
+
+            if uniprot_id in ids_to_get:
+                SeqIO.write(prot, stdout, 'fasta')
+                
 if __name__ == '__main__':
-    idlist = sys.argv[1]  # File containing the list of IDs to keep
-    seqfile = sys.argv[2]  # FASTA file from which to extract the matching sequences
-    pidlist = get_ids(idlist)
-    get_seq(pidlist, seqfile)
+    to_get = argv[1]  # File containing the list of IDs to keep
+    dataset = argv[2]  # FASTA file from which to extract the matching sequences
+    pidlist = get_ids(to_get)
+    get_seq(pidlist, dataset)
