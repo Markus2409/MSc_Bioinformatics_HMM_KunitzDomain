@@ -11,7 +11,7 @@ This project was developed as part of a *Laboratory of Bioinformatics 1* assignm
 The following packages are required:
 
 - **CD-HIT**
-  **Purpose**: Clustering and redundancy reduction of protein sequences.
+**Purpose**: Clustering and redundancy reduction of protein sequences.
   **Install via conda**:
   ```bash
   conda install -c bioconda cd-hit
