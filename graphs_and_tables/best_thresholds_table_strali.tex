@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage[a4paper,margin=1in]{geometry}
+
+\begin{document}
+
+\begin{table}[htbp]
+\centering
+\caption{Best threshold and MCC for each set and E-value type}
+\label{tab:best_thresholds}
+\begin{tabular}{lllr}
+\toprule
+Test set & E-value source & Threshold & MCC \\
+\midrule
+set1 & full-seq & 1e-06 & 0.994547 \\
+set2 & full-seq & 1e-06 & 0.994547 \\
+set1 & single-dom & 1e-05 & 0.994547 \\
+set2 & single-dom & 1e-05 & 0.991824 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
