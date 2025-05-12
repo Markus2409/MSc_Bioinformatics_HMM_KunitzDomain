@@ -1,4 +1,4 @@
-## iNTERPRO_ANALYSIS Folder
+## INTERPRO_ANALYSIS folder
 
 This folder contains all files and datasets used to repeat the main analysis after identifying a crucial issue related to missing annotations in the original Pfam-based domain filtering.
 
@@ -20,4 +20,4 @@ This folder includes:
 - A revised version of `create_testing_sets.sh`, which redefines the positive and negative sets based on the expanded pool of Kunitz proteins  
 
 > **Note**: The rest of the pipeline and associated scripts remain unchanged. Representative selection, alignments, and HMM construction still follow the procedure described in the main workflow.  
-> The results obtained from this extended analysis — including false positives, false negatives, and overall performance — are documented in the  `OUTPUT_EXAMPLES` folder.
+> The results obtained from this extended analysis — including false positives, false negatives, and overall performance — are documented in the  `OUTPUT_EXAMPLES_INTERPRO` folder.
