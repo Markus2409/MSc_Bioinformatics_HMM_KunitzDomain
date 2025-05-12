@@ -1,3 +1,0 @@
-iNTERPRO_ANALYSIS/uniprot_sprot.fasta filter=lfs diff=lfs merge=lfs -text
-iNTERPRO_ANALYSIS/OUTPUT_EXAMPLES/neg_1.fasta filter=lfs diff=lfs merge=lfs -text
-iNTERPRO_ANALYSIS/OUTPUT_EXAMPLES/neg_2.fasta filter=lfs diff=lfs merge=lfs -text
