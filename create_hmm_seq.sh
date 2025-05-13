@@ -1,6 +1,6 @@
 #WARNING! This script uses some files that are created by the creating_testing_sets.sh so you have to run before all the other scripts and this one if you want a performance for an HMM model using sequence alignment
 
-# Make the multiple sequence alignment using the rapresentative pdb sequences cleaned by non structural (to balance the evaluation)
+# Make the multiple sequence alignment using the rapresentative pdb sequences cleaned from structural alignment (to balance the evaluation)
 muscle -align pdb_kunitz_rp_clean.fasta -output pdb_kunitz_rp_seqali.fasta
 #is the file aligned sequencially  with the most representatives proteins. Contains the training set to generate the HMM model.
 
