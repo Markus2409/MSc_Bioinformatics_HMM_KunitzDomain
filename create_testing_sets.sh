@@ -1,7 +1,7 @@
 #Before to start with the analysis we have to select the ids of the proteins that are maintained by Structural alignment to remove them from the test set!
 grep ">" pdb_kunitz_rp_strali.fasta | sed 's/>//' | sed 's/:/_/' > ids_to_keep_forseq.txt
 
-#Use the ids to extract the 23 kunitz sequences aligned by structural alignment
+#Use the ids to extract the kunitz sequences aligned by structural alignment
 awk 'BEGIN {
   while ((getline < "ids_to_keep_forseq.txt") > 0) ids[$1] = 1
 }
@@ -18,7 +18,7 @@ rm -f ids_to_keep_forseq.txt #remove the temporary file that contain the ids
 # Create a BLAST database from all Kunitz proteins
 makeblastdb -in all_kunitz.fasta -input_type fasta -dbtype prot -out all_kunitz.fasta
 
-# Perform BLAST search of the 23 representative sequences against the full Kunitz dataset
+# Perform BLAST search of the representative sequences against the full Kunitz dataset
 blastp -query pdb_kunitz_rp_clean.fasta -db all_kunitz.fasta -out tmp_pdb_kunitz_rp_clean.blast -outfmt 7
 
 # Extract Uniprot IDs of sequences with high identity (≥95%) and alignment length ≥50 to remove them from the training/testing pool
