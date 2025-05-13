@@ -97,10 +97,15 @@ This repository contains:
 - `graphics_and_tables` folder
   A folder containing summary **plots**, **figures**, and **tables** generated during the evaluation of the HMM models.
 
-- `iNTERPRO_ANALYSIS`
+- `INTERPRO_ANALYSIS`
   This folder contains all materials and results obtained from a secondary exploratory analysis that integrates the InterPro domain annotation **IPR036880**, which is an alternative to the Pfam ID PF00014 used in the primary HMM analysis.
   The motivation for this integration stems from the observation that several Kunitz-type proteins were excluded from the positive set due to incomplete or inconsistent domain annotations in UniProt/Swiss-Prot. To address this, all sequences annotated with InterPro entry IPR036880 were retrieved and analyzed.
   
+- `marco_cuscuna_report.pdf`
+  This document is the final lab report for the *Laboratory of Bioinformatics 1* course (MSc in Bioinformatics, University of Bologna), authored by Marco Cuscunà.  
+  It describes the complete development and evaluation of profile Hidden Markov Models (HMMs) for detecting the Kunitz-type protease inhibitor domain.  
+  The report compares sequence- and structure-based alignment approaches using 2-fold cross-validation, highlights annotation-related challenges (e.g., Pfam vs. InterPro cross-reference issues), and discusses the impact of structural information on classification performance.
+
 ---
 
 ## What to Do
